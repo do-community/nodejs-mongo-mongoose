@@ -1,0 +1,54 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.18.0 (06a2e56)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: db
+  name: db
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: db
+    spec:
+      containers:
+      - env:
+        - name: MONGO_DB
+          valueFrom:
+            configMapKeyRef:
+              key: MONGO_DB
+              name: db-env
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGO_PASSWORD
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGO_USERNAME
+        - name: MONGO_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: MONGO_PORT
+              name: db-env
+        image: mongo:4.1.8-xenial
+        name: db
+        resources: {}
+        volumeMounts:
+        - mountPath: /data/db
+          name: dbdata
+      restartPolicy: Always
+      volumes:
+      - name: dbdata
+        persistentVolumeClaim:
+          claimName: dbdata
+status: {}
