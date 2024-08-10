@@ -2,7 +2,7 @@
   "name": "nodejs-image-demo",
   "version": "1.0.0",
   "description": "nodejs image demo",
-  "author": "katjuell <kathleenjuell@gmail.com>",
+  "author": "mascot",
   "license": "MIT",
   "main": "app.js",
   "repository": {
@@ -15,8 +15,9 @@
     "express"
   ],
   "dependencies": {
-    "ejs": "^2.6.1",
-    "express": "^4.16.4",
-    "mongoose": "^5.4.10"
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.2",
+    "nodemon": "^3.1.4"
   }
 }
